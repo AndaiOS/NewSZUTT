@@ -44,6 +44,12 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.barTintColor = MainBlueColor;
     
+    
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ChangeNotification:) name:@"ChangeNotification" object:nil];
+    
+    
+    
     NSURL* imagePath1 = [NSURL URLWithString:@"http://s15.sinaimg.cn/middle/9914f9fdhbc6170891ebe&690"];
     
     UIImageView * background = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blank"]];
@@ -374,31 +380,40 @@
     }
     
     
+    dispatch_queue_t concurrentQueue = dispatch_queue_create("com.request.lessontable", DISPATCH_QUEUE_CONCURRENT);
     
-    [[HttpManager instance] requestLessonTimeTable:@{STUDENT_NUMBER:TEST_STUDENT_NUMBER, STUDENT_PASSWORD:TEST_STUDENT_PASSWORD} success:^(id responseObject) {
-        responseDic = responseObject;
-        //课程数据
-        lessondata = responseDic[@"lesson_data"];
-        [_collectionView reloadData];
+    dispatch_async(concurrentQueue, ^{
         
-    } failure:^(NSError *error) {
-        [self setTitle:@"警告" setMessage:@"网络出错!" setActionTitle:@"知道了"];
-        NSLog(@"%@",error);
-    }];
+        
+        [[HttpManager instance] requestLessonTimeTable:@{STUDENT_NUMBER:TEST_STUDENT_NUMBER, STUDENT_PASSWORD:TEST_STUDENT_PASSWORD} success:^(id responseObject) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                responseDic = responseObject;
+                //课程数据
+                lessondata = responseDic[@"lesson_data"];
+                [_collectionView reloadData];
+            });
+            
+            
+        } failure:^(NSError *error) {
+            [self setTitle:@"警告" setMessage:@"网络出错!" setActionTitle:@"知道了"];
+            NSLog(@"%@",error);
+        }];
+        
+        
+        
+        
+    });
 }
 -(void)clickLeftButton:(id)sender{
-    UIImageView * background = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height)];
     
-    if(timeflag == 1){
-        background.image = [UIImage imageNamed:@"moon"];
-        timeflag = 0;
-    }
-    else{
-        background.image = [UIImage imageNamed:@"blank"];
-        timeflag = 1;
-    }
-    background.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:background.image]];
+    //创建发送切换的通知
+    NSNotification * notice = [NSNotification notificationWithName:@"ChangeNotification" object:nil userInfo:@{@"action":@"ChangeNotification"}];
+    //发送消息
+    [[NSNotificationCenter defaultCenter]postNotification:notice];
+    
+    
+    
 }
 -(void)clickRightButton:(id)sender{
     HomeWorkViewController * homeworkVC = [[HomeWorkViewController alloc]init];
@@ -415,4 +430,31 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
+
+- (void)ChangeNotification:(id)sender{
+    
+    NSLog(@"%@",sender);
+    NSNotification * notice = (NSNotification *)sender;
+    //检测到需要更换背景图片
+    NSString * string = notice.name;
+    if ([string isEqualToString:@"ChangeNotification"]){ //接收到了需要更换的通知
+        
+        UIImageView * background = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height)];
+        if(timeflag == 1){
+            background.image = [UIImage imageNamed:@"moon"];
+            timeflag = 0;
+        }
+        else{
+            background.image = [UIImage imageNamed:@"blank"];
+            timeflag = 1;
+        }
+        background.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view setBackgroundColor:[UIColor colorWithPatternImage:background.image]];
+        
+    }else{
+        
+        
+    }
+}
 @end

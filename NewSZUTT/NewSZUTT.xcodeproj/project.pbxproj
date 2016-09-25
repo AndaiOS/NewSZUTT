@@ -114,6 +114,7 @@
 		AD3D04881CDCE99700D4A03A /* NewClubEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3D04871CDCE99700D4A03A /* NewClubEventViewController.m */; };
 		AD3D048B1CDCF3FF00D4A03A /* HotClubTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3D048A1CDCF3FF00D4A03A /* HotClubTableViewCell.m */; };
 		AD3D04961CDD135E00D4A03A /* EachClubEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3D04951CDD135E00D4A03A /* EachClubEventTableViewCell.m */; };
+		AD5342CA1D980BF300191500 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5342C91D980BF300191500 /* BaseView.m */; };
 		AD617DF31CB69E000065BF99 /* TeacherPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD617DF21CB69E000065BF99 /* TeacherPhoneViewController.m */; };
 		AD617DF61CB6DAB40065BF99 /* TeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD617DF51CB6DAB40065BF99 /* TeacherTableViewCell.m */; };
 		AD617DF91CB6E0C20065BF99 /* address_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD617DF71CB6E0C20065BF99 /* address_icon@2x.png */; };
@@ -459,6 +460,8 @@
 		AD3D048A1CDCF3FF00D4A03A /* HotClubTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotClubTableViewCell.m; sourceTree = "<group>"; };
 		AD3D04941CDD135E00D4A03A /* EachClubEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EachClubEventTableViewCell.h; sourceTree = "<group>"; };
 		AD3D04951CDD135E00D4A03A /* EachClubEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EachClubEventTableViewCell.m; sourceTree = "<group>"; };
+		AD5342C81D980BF300191500 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		AD5342C91D980BF300191500 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		AD617DF11CB69E000065BF99 /* TeacherPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherPhoneViewController.h; sourceTree = "<group>"; };
 		AD617DF21CB69E000065BF99 /* TeacherPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeacherPhoneViewController.m; sourceTree = "<group>"; };
 		AD617DF41CB6DAB40065BF99 /* TeacherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeacherTableViewCell.h; sourceTree = "<group>"; };
@@ -779,6 +782,7 @@
 		AD01F2621CAC07F200C6A13E /* LessonPage */ = {
 			isa = PBXGroup;
 			children = (
+				AD5342C71D980BD100191500 /* Model */,
 				AD0C489A1CBE2F0C00763FCE /* Masonry */,
 				ADA4C6501CB4BAF300E685AD /* View */,
 				AD01F2661CAC08A200C6A13E /* Controller */,
@@ -1094,6 +1098,15 @@
 				AD1F3B3C1CB2603900F0DB0A /* img0.jpg */,
 			);
 			name = DiscoverPage;
+			sourceTree = "<group>";
+		};
+		AD5342C71D980BD100191500 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD5342C81D980BF300191500 /* BaseView.h */,
+				AD5342C91D980BF300191500 /* BaseView.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		ADA4C63E1CB42F5C00E685AD /* View */ = {
@@ -1760,6 +1773,7 @@
 				AD1427E61CCA080200A9DA66 /* AFHTTPRequestOperation.m in Sources */,
 				AD01F2311CAC070E00C6A13E /* main.m in Sources */,
 				ADF92B491CDDD86C00658C5D /* AroundSZUViewController.m in Sources */,
+				AD5342CA1D980BF300191500 /* BaseView.m in Sources */,
 				ADAE43661CE07A7200617262 /* Student.m in Sources */,
 				ADF92B401CDD8BE000658C5D /* ClubHomePageViewController.m in Sources */,
 				AD06CB481D0C511000D19B6B /* ShareViewController.m in Sources */,

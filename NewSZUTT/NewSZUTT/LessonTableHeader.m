@@ -8,17 +8,28 @@
 
 #import "LessonTableHeader.h"
 
+@interface LessonTableHeader()<ChangeStyle>{
+    NSInteger style;
+}
+
+@end
+
 @implementation LessonTableHeader
 
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
         self.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+        self.type = 1;//只能更换颜色
         float h = 44;
         float btn_width = Screen_Width / 6;//按钮宽度
         float btn_height = h;//按钮高度
         float space = (Screen_Width - (6 * btn_width)) / 7;//第一个按钮的起始位置
         float padding = space + btn_width;
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"ChangeNotification" object:nil];
+        
+        
         
         _weekBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_weekBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.6]];
@@ -76,6 +87,36 @@
         
     }
     return self;
+}
+- (void)notification:(id)sender{
+    
+    NSNotification * notice = (NSNotification *)sender;
+    if([notice.name isEqualToString:@"ChangeNotification"]){
+        [self changeStyle:self.type];
+    }
+}
+- (void)changeStyle:(NSInteger)type{
+    
+    if (type == 1){
+        if(style){
+            [_weekBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            [_monBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            [_tueBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            [_wedBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            [_thrBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            [_friBtn setBackgroundColor:[UIColor colorWithRed:0.0/255 green:191.0/255 blue:255.0/255 alpha:0.85]];
+            style = 0;
+        }
+        else{
+            [_weekBtn setBackgroundColor:[UIColor blueColor]];
+            [_monBtn setBackgroundColor:[UIColor blueColor]];
+            [_tueBtn setBackgroundColor:[UIColor blueColor]];
+            [_wedBtn setBackgroundColor:[UIColor blueColor]];
+            [_thrBtn setBackgroundColor:[UIColor blueColor]];
+            [_friBtn setBackgroundColor:[UIColor blueColor]];
+            style = 1;
+        }
+    }
 }
 -(void)setWeekNumber:(NSInteger)weeknumber{
     //NSInteger对应ld

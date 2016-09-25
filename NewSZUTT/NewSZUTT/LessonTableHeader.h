@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseView.h"
 
-@interface LessonTableHeader : UIView
+@interface LessonTableHeader : BaseView
 
 @property (nonatomic , strong) UIButton * weekBtn;
 @property (nonatomic , strong) UIButton * monBtn;
